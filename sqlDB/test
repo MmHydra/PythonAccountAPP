@@ -1,0 +1,102 @@
+# import sqlite3
+#
+# result1 = ""
+#
+# conn = sqlite3.connect('sqlTest')
+#
+# c = conn.cursor()
+#
+#
+#
+# c.execute("""INSERT INTO user (First_Name) VALUES ('Andrei')""")
+# c.execute("SELECT First_Name FROM user")
+# result1 = c.fetchall()
+# conn.commit()
+#
+# conn.close()
+#
+# print(result1)
+
+######################################################################
+
+# import sqlite3
+#
+#
+#
+# conn = sqlite3.connect('sqlTest')
+#
+# c = conn.cursor()
+#
+# c.execute("ALTER TABLE user ADD COLUMN gender char(1)")
+#
+# conn.commit()
+#
+#conn.close()
+
+######################################################################
+
+
+# import sqlite3
+#
+# result1 = "Shovchko"
+# result2 = "Second_Name"
+# conn = sqlite3.connect('sqlTest')
+#
+# c = conn.cursor()
+#
+# text_query = "INSERT INTO user (" + result2 + ") VALUES ('" + result1 + "')"
+# print(text_query)
+# c.execute(text_query)
+#
+# conn.commit()
+#
+# conn.close()
+
+######################################################################
+
+import sqlite3
+conn = sqlite3.connect('sqlTest')
+
+c = conn.cursor()
+this_dictionary = {"First_Name": "Andrei",
+                   "Second_Name": "Shovchko",
+                   "age": 6666,
+                   "gender": "m"}
+# column = ""
+# value_of_column = ""
+
+
+column = []
+value_of_column = []
+while bool(this_dictionary):
+
+    pop_from_dict = this_dictionary.popitem()
+
+    column.append(pop_from_dict[0])
+    value_of_column.append(str(pop_from_dict[1]))
+
+
+
+i = 0
+
+for x in value_of_column:
+    value_of_column[i] = "\'" + x + "\'"
+    i = i+1
+
+
+column.reverse()
+value_of_column.reverse()
+
+m = ', '.join(column)
+n = ', '.join(value_of_column)
+
+
+
+
+text_query = "INSERT INTO user (" + m + ") VALUES (" + n + ")"
+print(text_query)
+c.execute(text_query)
+
+conn.commit()
+
+conn.close()
